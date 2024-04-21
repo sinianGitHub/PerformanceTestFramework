@@ -42,14 +42,34 @@ public class PerfConfigContext implements TestTemplateInvocationContext {
     private              JunitPerfRequire                                 perfRequire;
 
 
+    /**
+     * @Author sinian
+     * @Description :拿到需要测试的方法，及其方法上的JunitPerfConfig和JunitPerfRequire注解
+     * @Date 2024/4/21 18:10
+     * @Param [context]
+     * @return
+     **/
+
+
     public PerfConfigContext(ExtensionContext context) {
-        this.method = context.getRequiredTestMethod();
-        this.perfConfig = method.getAnnotation(JunitPerfConfig.class);
-        this.perfRequire = method.getAnnotation(JunitPerfRequire.class);
+        this.method = context.getRequiredTestMethod();//获取需要测试的方法
+        this.perfConfig = method.getAnnotation(JunitPerfConfig.class);//获取方法上的JunitPerfConfig注解
+        this.perfRequire = method.getAnnotation(JunitPerfRequire.class);//获取方法上的JunitPerfRequire注解
     }
 
+
+    /**
+     * @Author sinian
+     * @Description :对测试实例进行性能评估，并生成相应的报告。
+     * 在评估过程中，会创建一个EvaluationContext对象，加载配置信息和要求信息，实例化统计计算器对象，获取报告器集合等操作。
+     * 最后，通过PerformanceEvaluationStatement类对评估过程进行处理，并捕获可能的异常
+     * @Date 2024/4/21 18:12
+     * @Param []
+     * @return java.util.List<org.junit.jupiter.api.extension.Extension>
+     **/
+
     @Override
-    public List<Extension> getAdditionalExtensions() {
+    public List<Extension> getAdditionalExtensions() {//框架触发扩展方法是启动项
         return Collections.singletonList(
                 (TestInstancePostProcessor) (testInstance, context) -> {
                     final Class clazz = testInstance.getClass();
