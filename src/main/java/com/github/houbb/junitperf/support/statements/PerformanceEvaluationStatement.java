@@ -61,6 +61,17 @@ public class PerformanceEvaluationStatement {
      * @throws Throwable 异常
      */
     public void evaluate() throws Throwable {
+        /**
+         *任务列表
+         *      PerformanceEvaluationTask：
+         *      * @param warmUpNs 准备时间
+         *      * @param statisticsCalculator 统计
+         *      * @param testInstance 测试实例
+         *      * @param testMethod 测试方法
+         *      * @since 1.0.0
+         *      执行校验/评估/方法测试，通用的统计更新，获取消耗的时间(单位：毫秒)
+         *
+         **/
         List<PerformanceEvaluationTask> taskList = new LinkedList<>();
 
         try {

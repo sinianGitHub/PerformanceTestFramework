@@ -77,7 +77,6 @@ public class PerformanceEvaluationTask implements Runnable {
 
     /**
      * 执行校验
-     *
      * @param startMeasurements 开始时间
      */
     private void evaluateStatement(long startMeasurements) {
@@ -85,7 +84,9 @@ public class PerformanceEvaluationTask implements Runnable {
         if (!isContinue) {
             return;
         }
-
+        /**
+         * nanoTime()方法用于返回当前系统时间的值(以纳秒为单位)。
+         **/
         //1. 准备阶段
         if (nanoTime() < startMeasurements) {
             try {
@@ -94,15 +95,21 @@ public class PerformanceEvaluationTask implements Runnable {
                 // IGNORE
             }
         } else {
+            /**
+             *每触发一次方法的执行，则进行一次评估的数量的更新
+             *每触发一次方法的执行，则进行一次评估时间的累加
+             **/
             long startTimeNs = nanoTime();
             try {
                 testMethod.invoke(testInstance);
 
                 commonStatisticsUpdate(startTimeNs);
             } catch (Exception throwable) {
+                /**
+                 *每次方法执行失败，统计失败的次数，同时进行一次评估时间的累加
+                 **/
                 // 错误信息更新
                 statisticsCalculator.incrementErrorCount();
-
                 commonStatisticsUpdate(startTimeNs);
             }
         }
@@ -114,8 +121,8 @@ public class PerformanceEvaluationTask implements Runnable {
      * @since 2.0.5
      */
     private void commonStatisticsUpdate(final long startTimeNs) {
-        statisticsCalculator.incrementEvaluationCount();
-        statisticsCalculator.addLatencyMeasurement(getCostTimeNs(startTimeNs));
+        statisticsCalculator.incrementEvaluationCount();//增加校验/评估的总数
+        statisticsCalculator.addLatencyMeasurement(getCostTimeNs(startTimeNs));//累加延迟的时间
     }
 
     /**
