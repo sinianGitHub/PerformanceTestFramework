@@ -166,7 +166,7 @@ public class PerfConfigContext implements TestTemplateInvocationContext {
          **/
         Class<? extends Reporter>[] reporters = perfConfig.reporter();
         /**
-         *可能存在多个reporter，
+         *可能存在多个reporter
          **/
         for (Class clazz : reporters) {
             try {
