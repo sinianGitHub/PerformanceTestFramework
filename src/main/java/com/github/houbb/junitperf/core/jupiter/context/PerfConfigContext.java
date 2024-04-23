@@ -128,13 +128,12 @@ public class PerfConfigContext implements TestTemplateInvocationContext {
                         /**
                          *性能测试 statement
                          *      * 性能测试接口定义
-                         *      *
                          *      * @param evaluationContext    上下文
                          *      * @param statisticsCalculator 统计
                          *      * @param reporterSet          报告方式
                          *      * @param evaluationContextList 上下文
                          *      * @param testClass            当前测试 class 信息
-                         *TODO:
+                         *
                          **/
 
                         new PerformanceEvaluationStatement(evaluationContext,

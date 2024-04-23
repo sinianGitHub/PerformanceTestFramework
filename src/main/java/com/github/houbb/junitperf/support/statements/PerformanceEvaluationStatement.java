@@ -81,16 +81,27 @@ public class PerformanceEvaluationStatement {
                         statisticsCalculator,
                         evaluationContext.getTestInstance(),
                         evaluationContext.getTestMethod());
+           /**
+            *FACTORY -> Thread newThread(Runnable r);
+            * task->PerformanceEvaluationTask implements Runnable
+            **/
                 Thread t = FACTORY.newThread(task);
                 taskList.add(task);
                 t.start();
             }
-
+            /**
+             *  Duration:运行时间
+             * 主线程持续Duration一段时间
+             **/
             Thread.sleep(evaluationConfig.getConfigDuration());
         } finally {
-            //具体详情，当执行打断时，被打断的任务可能已经开始执行(尚未执行完)，会出现主线程往下走，被打断的线程也在继续走的情况
+            /**
+             *具体详情，当执行打断时，被打断的任务可能已经开始执行(尚未执行完)，会出现主线程往下走，被打断的线程也在继续走的情况
+             **/
             for (PerformanceEvaluationTask task : taskList) {
-                //终止执行的任务
+                /**
+                 *终止执行的任务
+                 **/
                 task.setContinue(false);
             }
         }
@@ -108,7 +119,9 @@ public class PerformanceEvaluationStatement {
         if(reporterSet.isEmpty()) {
             final String info = I18N.get(I18N.Key.reportIsEmpty);
         }
-
+        /**
+         *返回可用最优线程
+         **/
         int bestThreadNum = ThreadUtil.bestThreadNum(reporterSet.size());
         if(bestThreadNum <= 1) {
             //2. 是否为只有单个文件
