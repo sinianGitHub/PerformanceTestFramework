@@ -17,6 +17,9 @@ import java.util.stream.Stream;
 @API(status = API.Status.INTERNAL)
 public class PerfConfigProvider implements TestTemplateInvocationContextProvider {
 
+/**
+ *context容器存储了所有的测试类，测试实例，测试方法...，可以理解成为一种数据库，或者配置（非字符串）
+ **/
 
 @Override//从扩展上下文中拿到测试方法，判断是否测试方法被标记了@JunitPerfConfig注解，则返回true，否则返回false。
     public boolean supportsTestTemplate(ExtensionContext context) {
